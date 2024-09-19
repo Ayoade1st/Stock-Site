@@ -59,12 +59,12 @@ API routes are available for a number of currencies to get there you will need t
  
 
 ### Roadmap
-+ <del>Login/Signup functionality </del>  
-+ <del> Landing page describing webapp</del>  
-+ <del>Dashboard page for initial view </del>  
-+ <del> EXTRA: Stock trading </del> 
-+ <del>Dashboard page </del > 
-+ <del>Charting for assets  </del>
++ Login/Signup functionality 
++ Landing page describing webapp
++ Dashboard page for initial view 
++  EXTRA: Stock trading
++ Dashboard page
++ <del>Charting for assets 
 + <del>Host webapp on a hosting provider after grading.</del>
 + Some form of real time price updating via Redis. API calls and results stored in redis for real-time pricing and update SQL db every so often.
 
