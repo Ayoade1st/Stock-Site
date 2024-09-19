@@ -1,0 +1,56 @@
+{% extends "index.html" %}
+{% block title %}Stocks |{% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block content %}
+  <h2>Stocks  (Beta)</h2>
+  <button>Create New</button>
+  {% if Stocks|length < 1 %}
+    <p>Looks like you dont have anything here! Click the button to start tracking stocks! ☝</p>
+  {% else %}
+    <table>
+      <thead>
+        <tr>
+          <th>Actions</th>
+          <th>Ticker</th>
+          <th>Amount</th>
+          <th>Market</th>
+          <th>Total in EUR</th>
+          <th>Total in USD</th>
+        </tr>
+      </thead>
+      <tbody>
+        {% for thing in Stocks %}
+        <tr>
+          <td>
+            <button>×</button>
+          </td>
+          <td>{{ thing.ticker }}</td>
+          <td>{{'%0.5f'% thing.amount |float}}</td>
+          <td>{{thing.market}}</td>
+          <td>€ {{'%0.2f'% thing.price_in_usd| float }}</td>
+          <td>$ {{'%0.2f'%thing.price_in_|float }}</td>
+		  <td>$ {{'%0.2f'%thing.price_in_cny|float }}</td>
+		  
+        </tr>
+        {% endfor %}
+      </tbody>
+    </table>
+  {% endif %}
+
+  <!-- Modal -->
+  <div class="modal">
+    <div class="modal-content">
+      <span class="close">&times;</span>
+      <h3>Modal Header</h3>
+      <p>Stock Details</p>
+      <label for="amount">Amount:</label>
+      <input type="text" id="amount" name="amount"><br><br>
+      <label for="ticker">Ticker:</label>
+      <input type="text" id="ticker" name="ticker"><br><br>
+      <button>Cancel</button>
+      <button>Save</button>
+    </div>
+  </div>
+{% endblock %}

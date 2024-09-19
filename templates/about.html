@@ -1,0 +1,32 @@
+{% extends "index.html" %} {% block title %}About |{% endblock %} {% block head %} {{ super() }} {% endblock %} {% block content %}
+<div class="row">
+    <div class="col-lg-12">
+        <h1>Created with Flask!!</h1>
+        <p>This app was made entirely with Flask and Bootstrap!</p>
+        <p>To get flask the flask framework and start making your own sites, go <a href="http://flask.pocoo.org" >here!</a></p>
+        <p>To get started with Twitter's Bootstrap, head over to <a href="http://getbootstrap.com" >here!</a></p>
+    </div>
+</div>
+<div class="row">
+    <div class="col-lg-12">
+        <h3>Mentions</h3>
+        <p>A number of resources where used to bring this project together: </p>
+        <ul>
+            <li><a href="https://github.com/mattupstate/flask-security"> Flask-Security</a></li>
+            <li><a href="https://github.com/mattupstate/flask-mail"> Flask-Mail</a></li>
+            <li><a href="https://github.com/kennethreitz/requests"> Flask-Security</a></li>
+            <li><a href="https://github.com/mitsuhiko/flask-sqlalchemy"> Flask-SQLAlchemy</a></li>
+            <li><a href="https://api.coingecko.com/</a>COINGECKO</li>
+            <li><a href="https://v6.exchangerate-api.com"> EXCHANGERATE-API</a></li>
+            <li><a href="https://www.alphavantage.co/query"> ALPHAVANTAGE-API</a></li>
+            <li><a href="https://startbootstrap.com/template-overviews/freelancer/"> Start bootstrap freelancer</a></li>
+            <li><a href="https://startbootstrap.com/template-overviews/simple-sidebar/"> Start bootstrap simple black and white sidebar</a></li>
+            <li><a href="http://bootsnipp.com/snippets/featured/no-more-tables-respsonsive-table">Bootsnipp responsive table for mobile only (Modified to includes buttons etc.)</a></li> 
+        </ul>
+           
+        <a href="/dashboard" class="btn btn-default">Back to Dashboard</a>
+    </div>
+</div>
+
+
+{% endblock %}

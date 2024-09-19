@@ -1,0 +1,130 @@
+{% extends "index.html" %}
+{% block title %}Charts |{% endblock %}
+{% block head %}
+{{ super() }}
+{% endblock %}
+{% block content %}
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script> 
+<h1>Flask Chart.js</h1>
+<!-- bar chart canvas element -->
+<br>
+<h2>Your Currency Charts</h2>
+
+<div class="container">
+    <div class="row">
+        <div class="col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">Currencies Amounts</div>
+                <div class="panel-body">
+                    <canvas id="chart" width="300" height="300" class='img-responsive'>
+                        Sorry, your browser doesn't support the <canvas> element.
+                    </canvas>
+                </div>
+                <div class="panel-footer">
+                    <div id="legendDiv"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">Value in EUR</div>
+                <div class="panel-body">
+                    <canvas id="chartEUR" width="300" height="300" class='img-responsive'>
+                        Sorry, your browser doesn't support the <canvas> element.
+                    </canvas>
+                </div>
+                <div class="panel-footer">
+                    <div id="legendDiv2"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <div class="row">
+        <div class="col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">Value in Chinese Yuan</div>
+                <div class="panel-body">
+                    <canvas id="chartCNY" width="300" height="300" class='img-responsive'>
+                        Sorry, your browser doesn't support the <canvas> element.
+                    </canvas>
+                </div>
+                <div class="panel-footer">
+                    <div id="legendDiv3"></div>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">Value in USD</div>
+                <div class="panel-body">
+                    <canvas id="chartUSD" width="300" height="300" class='img-responsive'>
+                        Sorry, your browser doesn't support the <canvas> element.
+                    </canvas>
+                </div>
+                <div class="panel-footer">
+                    <div id="legendDiv4"></div>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+
+<script>
+function makePieChart() {
+    var pieData = [
+        {% for amount, euros, dollars, yuan, label, colors in set %}
+            {
+                value: {{ amount }},
+                label: "{{ label }}",
+                color: "{{ colors }}"
+            },
+        {% endfor %}
+    ];
+
+    var pieDataEUR = [
+        {% for amount, euros, dollars, yuan, label, colors in set %}
+            {
+                value: {{ euros }},
+                label: "{{ label }}",
+                color: "{{ colors }}"
+            },
+        {% endfor %}
+    ];
+
+    var pieDataUSD = [
+        {% for amount, euros, dollars, yuan, label, colors in set %}
+            {
+                value: {{ dollars }},
+                label: "{{ label }}",
+                color: "{{ colors }}"
+            },
+        {% endfor %}
+    ];
+
+    var pieDataCNY = [
+        {% for amount, euros, dollars, yuan, label, colors in set %}
+            {
+                value: {{ yuan }},
+                label: "{{ label }}",
+                color: "{{ colors }}"
+            },
+        {% endfor %}
+    ];
+
+    var ctx = document.getElementById("chart").getContext("2d");
+    var chart = new Chart(ctx).Pie(pieData);
+
+    var ctxEUR = document.getElementById("chartEUR").getContext("2d");
+    var chartEUR = new Chart(ctxEUR).Pie(pieDataEUR);
+
+    var ctxUSD = document.getElementById("chartUSD").getContext("2d");
+    var chartUSD = new Chart(ctxUSD).Pie(pieDataUSD);
+
+    var ctxCNY = document.getElementById("chartCNY").getContext("2d");
+    var chartCNY = new Chart(ctxCNY).Pie(pieDataCNY);
+}
+
+window.onload = makePieChart;
+</script>
+{% endblock %}

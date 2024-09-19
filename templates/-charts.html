@@ -1,0 +1,165 @@
+{% extends "index.html" %} {% block title %}Charts |{% endblock %} {% block head %} {{ super() }} {% endblock %} {% block content %}
+<script src='https://cdnjs.cloudflare.com/ajax/libs/Chart.js/1.0.2/Chart.min.js'></script> 
+<h1>Flask Chart.js</h1>
+<!-- bar chart canvas element -->
+<br>
+<h2>Your Currency charts</h2>
+
+<div class="container">
+      <div class="row">
+        <div class="col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">Currencies Amounts</div> <!-- /panel-heading-->
+
+                <div class="panel-body">
+                <canvas id="chart" width="300" height="300" class='img-responsive'>
+                    Sorry, your browser doesn't support the &lt;canvas&gt; element.
+                    </canvas>
+                
+                </div><!-- /panel-body-->
+                <div class="panel-footer"> <div id="legendDiv"></div></div> <!-- /panel-footer-->
+            </div><!-- End panel div -->
+        </div> <!-- /col-md-4 -->
+        <div class="col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">Value in EUR</div> <!-- /panel-heading-->
+
+                <div class="panel-body">
+                <canvas id="chartEUR" width="300" height="300" class='img-responsive'>
+                    Sorry, your browser doesn't support the &lt;canvas&gt; element.
+                    </canvas>
+                
+                </div><!-- /panel-body-->
+                <div class="panel-footer"> <div id="legendDiv2"></div></div> <!-- /panel-footer-->
+            </div><!-- End panel div -->
+        
+        </div> <!-- /col-md-4 -->
+
+    </div> <!-- /row -->
+
+    <div class="row">
+        <div class="col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">Value in Chinese Yaun</div> <!-- /panel-heading-->
+
+                <div class="panel-body">
+                <canvas id="chartCNY" width="300" height="300" class='img-responsive'>
+                    Sorry, your browser doesn't support the &lt;canvas&gt; element.
+                    </canvas>
+                
+                </div><!-- /panel-body-->
+                 <div class="panel-footer"> <div id="legendDiv3"></div></div> <!-- /panel-footer-->
+            </div><!-- End panel div -->
+        </div> <!-- /col-md-4 -->
+
+        <div class="col-md-5">
+            <div class="panel panel-default">
+                <div class="panel-heading">Value in USD</div> <!-- /panel-heading-->
+
+                <div class="panel-body">
+                <canvas id="chartUSD" width="300" height="300" class='img-responsive'>
+                    Sorry, your browser doesn't support the &lt;canvas&gt; element.
+                </canvas>
+                
+                </div><!-- /panel-body-->
+                <div class="panel-footer"> <div id="legendDiv4"></div></div> <!-- /panel-footer-->
+            </div><!-- End panel div -->
+        
+        </div> <!-- /col-md-4 -->
+
+      </div> <!-- /row -->
+    
+    </div><!-- container -->
+
+
+<script> 
+function makePieChart(){
+
+
+    
+    var pieData = [
+            {% for amount, euros, dollars, yaun, label, colors in set %}
+                {
+                    value: {{amount}},  //value comes from jinja
+                    label: "{{label}}", //label used for 
+                    color : "{{colors}}"
+                },  
+                {% endfor %}
+ 
+ 
+         ];
+    var pieData2 = [
+            {% for amount, euros, dollars, yaun, label,colors in set %}
+                {
+                    value: {{euros}},
+                    label: "{{label}}",
+                    color : "{{colors}}"
+                },
+                {% endfor %}
+ 
+ 
+         ];
+        
+    var pieDataUSD = [
+            {% for amount, euros, dollars, yaun, label,colors in set %}
+                {
+                    value: {{dollars}},
+                    label: "{{label}}",
+                    color : "{{colors}}"
+                },
+                {% endfor %}
+ 
+ 
+         ];
+    var pieDataCNY = [
+            {% for amount, euros, dollars, yaun,  label,colors in set %}
+                {
+                    value: {{yaun}},
+                    label: "{{label}}",
+                    color : "{{colors}}"
+                },
+                {% endfor %}
+ 
+ 
+         ];
+ 
+   // get bar chart canvas
+   var mychart = document.getElementById("chartEUR").getContext("2d");
+ 
+   steps = 10
+   max = 10
+   // draw pie chart
+
+
+   var piechart= new Chart(document.getElementById("chart").getContext("2d")).Pie(pieData);
+       document.getElementById("legendDiv").innerHTML = piechart.generateLegend();
+
+
+//Issues : Only one Piechart is getting displayed. Issues showing with use of multiple svg elements
+//Appears as if its caused by Jinja iterating over the set and then not properly iterating over the set again
+//Resolution: Adapting this answer http://stackoverflow.com/questions/13651965/iterate-over-the-same-list-twice-in-jinja2
+// iterables do not allow for second iterations in Jinja, changing my data zip to list(zip(data)) allows multiple iterations
+//to make this work we need to iterate over the entire set not just the values we need
+
+//set up pie chart for second chart this one will have euro prices
+    var piechart2= new Chart(mychart).Pie(pieData2);
+       document.getElementById("legendDiv2").innerHTML = piechart2.generateLegend();
+
+//To DO:
+//set up pie chart for third chart containing GBP data
+
+var piechartCNY= new Chart(document.getElementById("chartCNY").getContext("2d")).Pie(pieDataCNY);
+       document.getElementById("legendDiv3").innerHTML = piechartCNY.generateLegend();
+       
+//set up pie chart for fourth chart containing USD data
+var piechartUSD= new Chart(document.getElementById("chartUSD").getContext("2d")).Pie(pieDataUSD);
+       document.getElementById("legendDiv4").innerHTML = piechartUSD.generateLegend();
+ 
+}
+makePieChart();
+</script>
+</body>
+
+</html>
+
+{% endblock %}

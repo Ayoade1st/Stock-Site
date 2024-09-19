@@ -1,0 +1,132 @@
+<!DOCTYPE html>
+<html lang="en">
+<!-- Have used template for the initial view however massively customised it to the point I can call it my own.
+    contains the side menu with buttons, links and footer with an ajoined menu bar which contains overridden bootstrap css to achieve a flush look -->
+<head>
+    {% block head %}
+    <meta charset="utf-8">
+    <meta http-equiv="X-UA-Compatible" content="IE=edge">
+    <meta name="viewport" content="width=device-width, shrink-to-fit=no, initial-scale=1">
+    <meta name="description" content="A webapp for tracking of assets and investments">
+    <meta name="author" content="Ryan Gordon">
+
+    <title>{% block title %}{% endblock %} Financial Portfolio</title>
+
+    <!-- Bootstrap Core CSS -->
+    <link href="static/css/bootstrap/bootstrap.min.css" rel="stylesheet">
+    <link href="https://maxcdn.bootstrapcdn.com/font-awesome/4.6.3/css/font-awesome.min.css" rel="stylesheet" integrity="sha384-T8Gy5hrqNKT+hzMclPo118YTQO6cYprQmhrYwIiQ/3axmI1hQomh7Ud2hPOy8SP1" crossorigin="anonymous">
+    <link rel="shortcut icon" href="{{ url_for('static', filename='favicon.ico') }}">
+    <!-- Custom CSS -->
+    <link href="static/css/simple-sidebar.css" rel="stylesheet">
+
+
+    <!-- HTML5 Shim and Respond.js IE8 support of HTML5 elements and media queries -->
+    <!-- WARNING: Respond.js doesn't work if you view the page via file:// -->
+    <!--[if lt IE 9]>
+        <script src="https://oss.maxcdn.com/libs/html5shiv/3.7.0/html5shiv.js"></script>
+        <script src="https://oss.maxcdn.com/libs/respond.js/1.4.2/respond.min.js"></script>
+    <![endif]-->
+    {% endblock %}
+</head>
+
+<body>
+
+    <!--jQuery -->
+    <script src="static/js/jquery.js"></script>
+
+    <!-- Bootstrap Core JavaScript -->
+    <script src="static/js/bootstrap.min.js"></script>
+    <div id="wrapper">
+        <!-- Sidebar -->
+        <div id="sidebar-wrapper">
+            <!-- Sidebar menu items -->
+            <ul class="sidebar-nav">
+                <li class="sidebar-brand">
+                    <a href="#">
+                        Financial Portfolio
+                    </a>
+                </li>
+                <li>
+                    <a href="/dashboard"><i class="fa fa-home" aria-hidden="true"></i>  Dashboard</a>
+                </li>
+                <li>
+                    <a href="/currencies"><i class="fa fa-money"></i>   Currencies</a>
+                </li>
+                <li>
+                    <a href="/stocks"><i class="fa fa-line-chart" aria-hidden="true"></i>  Stocks (beta)</a>
+                </li>
+                <li>
+                    <a href="/charts"><i class="fa fa-bar-chart" aria-hidden="true"></i>  Charts</a>
+                </li>
+                <li>
+                    <a href="/about"><i class="fa fa-question" aria-hidden="true"></i>  About</a>
+                </li>
+                <li>
+                    <a href="/contact"><i class="fa fa-comment" aria-hidden="true"></i>  Contact</a>
+                </li>
+
+            </ul>
+            <!-- footer for sidemenu -->
+            <footer class="footer">
+                <div class="footer-container">
+                    <p class="text-muted">Made with &#9829;.</p>
+                    <p class="text-muted">G00326349</p>
+                </div>
+            </footer>
+        </div>
+        <!-- /#sidebar-wrapper -->
+
+        <!-- Page Content -->
+        <nav class="navbar navbar-full">
+            <!-- style=" background-color: #58b3f3; -->
+            <div class="container-fluid">
+                <!-- Menu toggle used to hide and show sidemenu -->
+                <div class="navbar-header">
+                    <a class="navbar-brand" href="#menu-toggle" id="menu-toggle">
+                        <span class="glyphicon glyphicon-menu-hamburger"></span> Menu
+                    </a>
+                </div>
+                <!-- Collect the nav links, forms, and other content for toggling -->
+                <div class="collapse navbar-collapse nav-text" id="bs-example-navbar-collapse-1">
+                    <ul class="nav navbar-nav">
+                        <li class=" text-secondary"><a href="/dashboard" id="demo">Home <span class="sr-only">(current)</span></a></li>
+                    </ul>
+                    <ul class="nav navbar-nav navbar-right">
+                        <li class="dropdown">
+                            <a href="#" class="dropdown-toggle" data-toggle="dropdown" role="button" aria-haspopup="true" aria-expanded="false">Account <span class="caret"></span></a>
+                            <ul class="dropdown-menu navbar-right">
+                                <li><a href="/logout">Log Out</a></li>
+                                <li role="separator" class="divider"></li>
+                                <li><a href="/about">About</a></li>
+                            </ul>
+                        </li>
+                    </ul>
+                </div>
+                <!--navbar-collapse -->
+            </div>
+            <!-- container-fluid -->
+        </nav>
+
+
+        <div id="page-content-wrapper">
+            <div class="container-fluid">
+                <!-- block content will contain the HTML from any pages that inherit this page -->
+                {% block content %}{% endblock %}
+            </div>
+        </div>
+        <!--page-content-wrapper -->
+
+    </div>
+    <!--wrapper -->
+    <!-- Menu Toggle Script -->
+    <script>
+        $("#menu-toggle").click(function(e) {
+            e.preventDefault();
+            $("#wrapper").toggleClass("toggled");
+        });
+        var cur = document.getElementById("demo");
+    </script>
+
+</body>
+
+</html>
